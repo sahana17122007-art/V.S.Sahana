@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LegalEase</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f3f6fb;margin:0}
+header{background:#17365D;color:#fff;padding:16px 40px;font-weight:bold}
+main{max-width:640px;margin:30px auto;background:#fff;padding:24px;border-radius:12px}
+label{display:block;margin-top:12px;font-weight:bold;font-size:14px}
+input,select{width:100%;padding:8px;margin-top:4px;box-sizing:border-box}
+button{margin-top:18px;background:#17365D;color:#fff;border:0;padding:10px 22px;border-radius:6px}
+.err{background:#fde8e8;color:#9b1c1c;padding:10px;border-radius:6px;margin-bottom:10px}
+small{color:#666}
+</style></head><body>
+<header>LegalEase &ndash; AI-Powered Legal Document Generator</header>
+<main>
+<h2>Generate a Legal Document</h2>
+{% for e in errors %}<div class="err">{{ e }}</div>{% endfor %}
+<form method="post" action="/generate">
+<label>Document Type
+<select name="document_type">
+{% for k, v in document_types.items() %}
+<option value="{{k}}" {{ 'selected' if form.get('document_type')==k }}>{{v}}</option>
+{% endfor %}</select></label>
+<label>Your Name <input name="name" value="{{ form.get('name','') }}"></label>
+<label>Other Party <input name="other_party" value="{{ form.get('other_party','') }}"></label>
+<label>Purpose / Property / Role <input name="purpose" value="{{ form.get('purpose','') }}"></label>
+<label>Duration <input name="duration" value="{{ form.get('duration','') }}" placeholder="12 months"></label>
+<label>Amount (Rs.) <input name="amount" value="{{ form.get('amount','') }}"></label>
+<label>Security Deposit (Rs.) <input name="deposit" value="{{ form.get('deposit','') }}"></label>
+<label>Notice Period <input name="notice" value="{{ form.get('notice','') }}" placeholder="30 days"></label>
+<label>Place <input name="place" value="{{ form.get('place','') }}"></label>
+<button type="submit">Generate Draft</button><br>
+<small>Academic prototype only &mdash; not legal advice.</small>
+</form></main></body></html>
